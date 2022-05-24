@@ -41,7 +41,12 @@ jobs:
       
       - uses: s4u/maven-settings-action@v2.6.0
         with:
-          servers: '[{"id": "anypoint-exchange-v3", "username": ${{ secrets.ANYPOINT_USERNAME }}, "password": ${{ secrets.ANYPOINT_PASSWORD }}}]'
+          servers: |
+            [{
+                "id": "anypoint-exchange-v3",
+                "username": "${{ secrets.ANYPOINT_USERNAME }}",
+                "password": "${{ secrets.ANYPOINT_PASSWORD }}"
+            }]
       
       # maven build command, could add other flags if needed
       - name: Build
