@@ -79,11 +79,10 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-
-          
     - uses: actions/download-artifact@v3
       with:
         name: artifacts
-    
+
     - uses: s4u/maven-settings-action@v2.6.0
       with:
         servers: |
@@ -92,14 +91,10 @@ jobs:
               "username": "${{ secrets.ANYPOINT_USERNAME }}",
               "password": "${{ secrets.ANYPOINT_PASSWORD }}"
           }]
-    
     - name: Deploy to CloudHub
       env:
-        Autor: "Brayan"
+        AUTHOR: "Andres Morales"
       run: |
         artifactName=$(ls *.jar | head -1)
-        mvn package deploy -DmuleDeploy -Danypoint.env=Sandbox -Dapp-name=mule-cicd-actions-acm2005 \
-        mvn deploy -DmuleDeploy -Dap.clientid=${{secrets.AP_CLIENTID}} -Dap.clientsecret=${{secrets.AP_CLIENTSECRET}} \
-        -Dcicd.welcome.message=${{ secrets.MESSAGE }}
-  
-  # the last argument is to demonstrate the use of environment variables used by connectors or as part of application's logic
+        mvn deploy -DmuleDeploy -Dap.clientid=${{ secrets.AP_CLIENTID }} \
+        -Dap.clientsecret=${{ secrets.AP_CLIENTSECRET }}
