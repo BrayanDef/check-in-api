@@ -83,16 +83,23 @@ jobs:
     - uses: actions/download-artifact@v3
       with:
         name: artifacts
-        
+    
+    - uses: s4u/maven-settings-action@v2.6.0
+      with:
+        servers: |
+          [{
+              "id": "anypoint-exchange-v3",
+              "username": "${{ secrets.ANYPOINT_USERNAME }}",
+              "password": "${{ secrets.ANYPOINT_PASSWORD }}"
+          }]
+    
     - name: Deploy to CloudHub
       env:
-        USERNAME: ${{ secrets.ANYPOINT_USERNAME }}
-        PASSWORD: ${{ secrets.ANYPOINT_PASSWORD }}
-        MESSAGE: ${{ secrets.MESSAGE }}
+        Autor: "Brayan"
       run: |
         artifactName=$(ls *.jar | head -1)
         mvn package deploy -DmuleDeploy -Danypoint.env=Sandbox -Dapp-name=mule-cicd-actions-acm2005 \
-        -Danypoint.username=${{ secrets.ANYPOINT_USERNAME }} -Danypoint.password=${{ secrets.ANYPOINT_PASSWORD }} \
+        mvn deploy -DmuleDeploy -Dap.clientid=${{secrets.AP_CLIENTID}} -Dap.clientsecret=${{secrets.AP_CLIENTSECRET}} \
         -Dcicd.welcome.message=${{ secrets.MESSAGE }}
   
   # the last argument is to demonstrate the use of environment variables used by connectors or as part of application's logic
