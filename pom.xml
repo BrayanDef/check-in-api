@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>1014416b-7a3b-4d91-95f0-0ec0dc75ae6c</groupId>
+		<artifactId>solutions-parent-pom</artifactId>
+		<version>1.0.0</version>
+		<relativePath>../parent-pom/pom.xml</relativePath>
+	</parent>
+
+	<groupId>com.mycompany</groupId>
+	<artifactId>check-in-papi-app</artifactId>
+	<version>1.0.0</version>
+	<packaging>mule-application</packaging>
+
+	<name>check-in-papi-app</name>
+
+	<properties>
+		<!-- API Specification -->
+		<api.groupId>1defd6ae-6e75-43bc-9ebb-2b34d900cf49</api.groupId>
+		<api.artifactId>check-in-papi</api.artifactId>
+		<api.version>1.0.0</api.version>
+
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.mule.tools.maven</groupId> -->
+<!-- 				<artifactId>mule-maven-plugin</artifactId> -->
+<!-- 				<extensions>true</extensions> -->
+<!-- 			</plugin> -->
+			
+			<plugin>
+                <groupId>org.mule.tools.maven</groupId>
+                <artifactId>mule-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <cloudHubDeployment>
+                        <uri>https://anypoint.mulesoft.com</uri>
+                        <muleVersion>4.4.0</muleVersion>
+                        <connectedAppClientId>${ap.clientid}</connectedAppClientId>
+                        <connectedAppClientSecret>${ap.clientsecret}</connectedAppClientSecret>
+                        <connectedAppGrantType>client_credentials</connectedAppGrantType>
+                        <applicationName>check-in-papi-app-bdf-2305-CA</applicationName>
+                        <environment>dev</environment>
+                        <objectStoreV2>true</objectStoreV2>
+                        <persistentQueues>false</persistentQueues>
+                        <workers>1</workers>
+                        <workerType>SMALL</workerType>
+                        <properties>
+	                         <anypoint.platform.client_id>d71a0ff79c2e4ac385e50ebe0cc55a3c</anypoint.platform.client_id>
+	                         <anypoint.platform.client_secret>24c8053B0891447695209B3dABDc6248</anypoint.platform.client_secret>
+	                    </properties>
+                    </cloudHubDeployment>
+                    <classifier>mule-application</classifier>
+                </configuration>
+            </plugin>
+			
+<!-- 			<plugin> -->
+<!--                 <groupId>org.mule.tools.maven</groupId> -->
+<!--                 <artifactId>mule-maven-plugin</artifactId> -->
+<!--                 <extensions>true</extensions> -->
+<!--                 <configuration> -->
+<!--                     <cloudHubDeployment> -->
+<!--                         <uri>https://anypoint.mulesoft.com</uri> -->
+<!--                         <muleVersion>4.4.0</muleVersion> -->
+<!--                         <username>Brayandef43</username> -->
+<!--                         <password>Bray$2474</password> -->
+<!--                         <applicationName>check-in-papi-app-bdf-2305</applicationName> -->
+<!--                         <environment>dev</environment> -->
+<!--                         <objectStoreV2>true</objectStoreV2> -->
+<!--                         <persistentQueues>false</persistentQueues> -->
+<!--                         <workers>1</workers> -->
+<!--                         <workerType>SMALL</workerType> -->
+<!--                         <properties> -->
+<!-- 	                         <anypoint.platform.client_id>d71a0ff79c2e4ac385e50ebe0cc55a3c</anypoint.platform.client_id> -->
+<!-- 	                         <anypoint.platform.client_secret>24c8053B0891447695209B3dABDc6248</anypoint.platform.client_secret> -->
+<!-- 	                    </properties> -->
+<!--                     </cloudHubDeployment> -->
+<!--                     <classifier>mule-application</classifier> -->
+<!--                 </configuration> -->
+<!--             </plugin> -->
+            
+			<plugin>
+                <groupId>org.cyclonedx</groupId>
+                <artifactId>cyclonedx-maven-plugin</artifactId>
+                <version>2.6.2</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>makeAggregateBom</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <projectType>library</projectType>
+                    <schemaVersion>1.4</schemaVersion>
+                    <includeBomSerialNumber>true</includeBomSerialNumber>
+                    <includeCompileScope>true</includeCompileScope>
+                    <includeProvidedScope>true</includeProvidedScope>
+                    <includeRuntimeScope>true</includeRuntimeScope>
+                    <includeSystemScope>true</includeSystemScope>
+                    <includeTestScope>false</includeTestScope>
+                    <includeLicenseText>false</includeLicenseText>
+                    <outputReactorProjects>true</outputReactorProjects>
+                    <outputFormat>all</outputFormat>
+                    <outputName>bom</outputName>
+                </configuration>
+            </plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<!-- API Spec OAS -->
+		<dependency>
+            <groupId>${api.groupId}</groupId>
+            <artifactId>${api.artifactId}</artifactId>
+            <version>${api.version}</version>
+            <classifier>oas</classifier>
+            <type>zip</type>
+        </dependency>
+        
+		<dependency>
+			<groupId>org.mule.connectors</groupId>
+			<artifactId>mule-http-connector</artifactId>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.connectors</groupId>
+			<artifactId>mule-sockets-connector</artifactId>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.modules</groupId>
+			<artifactId>mule-apikit-module</artifactId>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+	</dependencies>
+
+</project>

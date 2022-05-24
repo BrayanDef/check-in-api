@@ -1,0 +1,15 @@
+api:
+  id: "17850682"
+  port: "8082"
+  timeout: "30000"
+  version: "v1"
+  groupId: "1defd6ae-6e75-43bc-9ebb-2b34d900cf49"
+  artifactId: "check-in-papi"
+  
+tls.keystore:
+  type: "PKCS12"
+  path: "check-in-papi.p12"
+  alias: "server"
+  password: "mule12345"
+  keypassword: "mule12345"
+
