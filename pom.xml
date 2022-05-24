@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
-	<parent>
-		<groupId>1014416b-7a3b-4d91-95f0-0ec0dc75ae6c</groupId>
-		<artifactId>solutions-parent-pom</artifactId>
-		<version>1.0.0</version>
-		<relativePath>../parent-pom/pom.xml</relativePath>
-	</parent>
 
 	<groupId>com.mycompany</groupId>
 	<artifactId>check-in-papi-app</artifactId>
@@ -17,6 +10,11 @@
 	<name>check-in-papi-app</name>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<app.runtime>4.4.0-20220420</app.runtime>
+		<mule.maven.plugin.version>3.5.4</mule.maven.plugin.version>
 		<!-- API Specification -->
 		<api.groupId>1defd6ae-6e75-43bc-9ebb-2b34d900cf49</api.groupId>
 		<api.artifactId>check-in-papi</api.artifactId>
@@ -26,10 +24,7 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-clean-plugin</artifactId>
-			</plugin>
+			
 <!-- 			<plugin> -->
 <!-- 				<groupId>org.mule.tools.maven</groupId> -->
 <!-- 				<artifactId>mule-maven-plugin</artifactId> -->
@@ -39,6 +34,7 @@
 			<plugin>
                 <groupId>org.mule.tools.maven</groupId>
                 <artifactId>mule-maven-plugin</artifactId>
+		<version>3.6.0</version>
                 <extensions>true</extensions>
                 <configuration>
                     <cloudHubDeployment>
@@ -47,7 +43,7 @@
                         <connectedAppClientId>${ap.clientid}</connectedAppClientId>
                         <connectedAppClientSecret>${ap.clientsecret}</connectedAppClientSecret>
                         <connectedAppGrantType>client_credentials</connectedAppGrantType>
-                        <applicationName>check-in-papi-app-bdf-2305-CA</applicationName>
+                        <applicationName>check-in-papi-app-bdf-2305-CA2</applicationName>
                         <environment>dev</environment>
                         <objectStoreV2>true</objectStoreV2>
                         <persistentQueues>false</persistentQueues>
@@ -130,16 +126,19 @@
 		<dependency>
 			<groupId>org.mule.connectors</groupId>
 			<artifactId>mule-http-connector</artifactId>
+			<version>1.6.0</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.mule.connectors</groupId>
 			<artifactId>mule-sockets-connector</artifactId>
+			<version>1.2.2</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.mule.modules</groupId>
 			<artifactId>mule-apikit-module</artifactId>
+			<version>1.5.12</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
 	</dependencies>
